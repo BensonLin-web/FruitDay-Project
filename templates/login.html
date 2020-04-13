@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		{% block title %}
+			<span>天天果園-會員登入</span>
+		{% endblock %}
+	</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/static/css/01-login.css">
+	{% block style %}
+	{% endblock %}
+
+	{% block script %}
+	{% endblock %}
+</head>
+<body>
+	{% if errMsg %}
+		<script>
+			alert('{{errMsg}}')
+		</script>
+	{% endif %}
+	<div id="container">
+		<!-- 1.標題 -->
+		{% block header %}
+		<h2>會員登入</h2>
+		{% endblock %}
+		<!-- 2.主體分兩部份 -->
+		<div class="left">
+			<img src="/static/images/huiyuan.jpg">
+			{% block anchor %}
+			<a href="#">會員註冊&gt;</a>
+			{% endblock %}
+		</div>
+		<div class="right">
+			{% block form %}
+			<form action="/login/" method="post">
+				{% csrf_token %}
+				<!-- 第一行 -->
+<!--				<div class="form-line">-->
+<!--					<p>手機號</p>-->
+<!--					<input type="text" name="uphone" class="form-control">-->
+<!--				</div>-->
+				<!-- 第二行 -->
+<!--				<div class="form-line">-->
+<!--					<p>密碼</p>-->
+<!--					<input type="password" name="upwd" class="form-control" placeholder="請輸入密碼">-->
+<!--				</div>-->
+<!--				循環form 得到每一個控件併購建成<div>...</div>-->
+				{% for field in form %}
+					<div class="form-line">
+						<p>{{field.label}}</p>
+						{{field}}
+					</div>
+				{% endfor %}
+				<!-- 第三行 -->
+				<div class="form-line">
+					<p></p>
+					<div>
+						<input type="checkbox" name="isSaved" class="isSaved"> 記住密碼
+						<p class="forget">
+							<a href="#">忘記密碼</a>
+							<a href="#">快捷登入</a>
+						</p>
+					</div>
+				</div>
+				<!-- 最後 -->
+				<div class="form-line">
+					<p></p>
+					<div>
+						<input type="submit" name="" value="登入" class="loginBtn">
+						<a href="#" class="registBtn">會員註冊</a>
+					</div>
+				</div>
+			</form>
+			{% endblock %}
+		</div>
+	</div>
+</body>
+</html>
